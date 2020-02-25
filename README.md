@@ -1,5 +1,8 @@
 # ODR tools installer V2 with full DAB+ multiplex and PadTool auto-configuration.
 
+
+![Screenshot of a logo slide](https://github.com/DABodr/ODR-Tools_Installer_V2/blob/master/supervisor.png) 
+
 * Auto-install script of ODR tools for RaspberryPi ARM with Buster, Jessie & Stretch distribution and Debian systems.
 * Auto-configuration with system adaptation of a full DAB+ multiplex.                   
 * No transmitter needed for listen your mux with DABlin, DAB+ decoder software.
