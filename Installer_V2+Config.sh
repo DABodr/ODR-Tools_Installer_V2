@@ -183,6 +183,8 @@ sudo pip3 install selenium
 sudo pip3 install imgkit
 sudo pip3 install pillow
 sudo pip3 install coverpy
+sudo pip3 install sacad
+sudo pip3 install discogs_client
 
 # this will install boost, cmake and a lot more
 sudo apt-get -y build-dep uhd
