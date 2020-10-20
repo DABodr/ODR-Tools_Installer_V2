@@ -205,7 +205,7 @@ echo -e "$GREEN PREREQUISITES INSTALLED $NORMAL"
 
 if [ ! -d "/home/$USER/dab/mmbtools-aux" ];then
 echo -e "$GREEN Fetching mmbtools-aux $NORMAL"
-git clone https://github.com/mpbraendli/mmbtools-aux.git
+git clone https://github.com/DABodr/mmbtools-aux.git
 pushd mmbtools-aux
 cd zmqtest/zmq-sub/
 make
