@@ -148,7 +148,7 @@ libvlc-dev vlc-data \
 libfaad2 libfaad-dev \
 python-mako python-requests \
 supervisor \
-pulseaudio
+pulseaudio libboost-system-dev
 
 
 if [[ "$DISTRO" == "jessie" || "$DISTRO" == "stretch" ]] ; then
@@ -187,7 +187,7 @@ sudo pip3 install sacad
 sudo pip3 install discogs_client
 
 # this will install boost, cmake and a lot more
-sudo apt-get -y build-dep uhd
+# sudo apt-get -y build-dep uhd
 
 # stuff to install from source
 
