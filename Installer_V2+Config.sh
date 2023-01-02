@@ -76,6 +76,18 @@ echo -e "deb-src http://raspbian.raspberrypi.org/raspbian/ buster contrib non-fr
 fi
 
 
+if [ $(lsb_release -d | grep -c Debian) -eq 1 ] && [ $(lsb_release -sc | grep -c bullseye) -eq 1 ] ; then
+	DISTRO="bullseye"
+echo -e  "deb-src http://ftp.debian.org/debian/ bullseye main contrib non-free" | sudo tee /etc/apt/sources.list.d/odr.list
+        LIST_APT="ok"
+fi
+
+if [ $(lsb_release -d | grep -c Raspbian) -eq 1 ] && [ $(lsb_release -sc | grep -c bullseye) -eq 1 ] ; then
+	DISTRO="bullseye"
+echo -e  "deb-src http://raspbian.raspberrypi.org/raspbian/ bullseye main contrib non-free rpi" | sudo tee /etc/apt/sources.list.d/odr.list
+        LIST_APT="ok"
+fi
+
 echo
 echo -e $COIN " Your version : $DISTRO "
 echo "========================================================="
@@ -150,30 +162,30 @@ python-mako python-requests \
 supervisor \
 pulseaudio libboost-system-dev
 
-
 if [[ "$DISTRO" == "jessie" || "$DISTRO" == "stretch" ]] ; then
-
 sudo apt-get -y install vlc-nox
-
-elif [ "$DISTRO" == "buster" ] ; then
-
-sudo apt-get -y install vlc-plugin-base
-
-fi
-
-if [ "$DISTRO" == "jessie" ] ; then
-
 sudo apt-get -y install libzmq3-dev libzmq3
-
-elif [ "$DISTRO" == "stretch" ] ; then
-
-sudo apt-get -y install libzmq3-dev libzmq5
-
 elif [ "$DISTRO" == "buster" ] ; then
-
+sudo apt-get -y install vlc-plugin-base
 sudo apt-get -y install libzmq5-dev libzmq5
-
+elif [ "$DISTRO" == "stretch" ] ; then
+sudo apt-get -y install libzmq3-dev libzmq5
+elif [ "$DISTRO" == "bullseye" ] ; then
+sudo apt-get -y install vlc-plugin-base
+sudo apt-get -y install libzmq3-dev libzmq5
 fi
+
+sudo apt-get -y install imagemagick
+
+if [ $(lsb_release -d | grep -c Raspbian) -eq 1 ] && [ $(lsb_release -sc | grep -c buster) -eq 1 ]; then
+sudo apt-get -y install libboost-all-dev libusb-1.0-0-dev 
+sudo apt-get -y install cmake
+elif [ $(lsb_release -d | grep -c Raspbian) -eq 1 ] && [ $(lsb_release -sc | grep -c bullseye) -eq 1 ]; then
+sudo apt-get -y install libboost-all-dev libusb-1.0-0-dev 
+sudo apt-get -y install cmake
+elif [ $(lsb_release -d | grep -c Ubuntu) -eq 1 ] && [ $(lsb_release -sc | grep -c bionic) -eq 1 ]; then
+sudo apt-get -y install libuhd-dev
+else
 
 echo -e "$GREEN Installing PadTool prerequisites $NORMAL"
 # PadTool essential prerequisistes
@@ -202,7 +214,7 @@ echo
 echo -e "$GREEN PREREQUISITES INSTALLED $NORMAL"
 ### END OF PREREQUISITES
 
-
+# ========== mmbTools ==========
 if [ ! -d "/home/$USER/dab/mmbtools-aux" ];then
 echo -e "$GREEN Fetching mmbtools-aux $NORMAL"
 git clone https://github.com/DABodr/mmbtools-aux.git
@@ -212,6 +224,7 @@ make
 popd
 fi
 
+# ========== EtiSnoop ==========
 if [ ! -d "/home/$USER/dab/etisnoop" ];then
 echo -e "$GREEN Fetching etisnoop $NORMAL"
 git clone https://github.com/Opendigitalradio/etisnoop.git
@@ -223,6 +236,7 @@ sudo make install
 popd
 fi
 
+# ========== DabMux ==========
 if [ ! -d "/home/$USER/dab/ODR-DabMux" ];then
 echo -e "$GREEN Compiling ODR-DabMux $NORMAL"
 git clone https://github.com/Opendigitalradio/ODR-DabMux.git
@@ -231,13 +245,14 @@ pushd ODR-DabMux
 if [ $(lsb_release -d | grep -c Raspbian) -eq 1 ]; then
 ./configure --enable-input-zeromq --enable-output-zeromq --with-boost-libdir=/usr/lib/arm-linux-gnueabihf
 else
-./configure --enable-input-zeromq --enable-output-zeromq --with-boost-libdir=/usr/lib/i386-linux-gnu
+./configure
 fi
 make
 sudo make install
 popd
 fi
 
+# ========== DABlin ==========
 if [ ! -d "/home/$USER/dab/dablin" ];then
 echo -e "$GREEN Compiling DABlin $NORMAL"
 sudo apt-get -y install libmpg123-dev libfaad-dev libsdl2-dev libgtkmm-3.0-dev
@@ -252,9 +267,10 @@ cd
 popd
 fi
 
+# ========== fdk-aac ==========
 if [ ! -d "/home/$USER/dab/fdk-aac" ];then
 echo -e "$GREEN Compiling fdk-aac library $NORMAL"
-git clone https://github.com/Opendigitalradio/fdk-aac.git -b dabplus2
+git clone https://github.com/Opendigitalradio/fdk-aac.git
 pushd fdk-aac
 ./bootstrap
 ./configure
@@ -267,6 +283,10 @@ echo -e "$GREEN Updating ld cache $NORMAL"
 # update ld cache
 sudo ldconfig
 
+# ========== AudioEnc ==========
+# For gstreamer option :
+sudo apt-get -y install gstreamer1.0-plugins-bad gstreamer1.0-plugins-base gstreamer1.0-plugins-good gstreamer1.0-plugins-ugly libgstreamer-plugins-bad1.0-dev libgstreamer-plugins-base1.0-dev libgstreamer-plugins-base1.0-dev libgstreamer1.0-dev
+# Audioenc :
 if [ ! -d "/home/$USER/dab/ODR-AudioEnc" ];then
 echo -e "$GREEN Compiling ODR-AudioEnc $NORMAL"
 git clone https://github.com/Opendigitalradio/ODR-AudioEnc.git
@@ -278,6 +298,7 @@ sudo make install
 popd
 fi
 
+# ========== PadEnc ==========
 if [ ! -d "/home/$USER/dab/ODR-PadEnc" ];then
 echo -e "$GREEN Compiling ODR-PadEnc $NORMAL"
 git clone https://github.com/Opendigitalradio/ODR-PadEnc.git
@@ -289,6 +310,7 @@ sudo make install
 popd
 fi
 
+# ========== PadTool ==========
 if [ ! -d "/home/$USER/dab/PadTool" ];then
 echo -e "$GREEN Compiling PadTool $NORMAL"
 git clone https://github.com/fabcd14/PadTool
