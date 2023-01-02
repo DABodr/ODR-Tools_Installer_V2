@@ -182,7 +182,7 @@ sudo apt-get -y install libboost-all-dev libusb-1.0-0-dev
 sudo apt-get -y install cmake
 elif [ $(lsb_release -d | grep -c Ubuntu) -eq 1 ] && [ $(lsb_release -sc | grep -c bionic) -eq 1 ]; then
 sudo apt-get -y install libuhd-dev
-else
+fi
 
 echo -e "$GREEN Installing PadTool prerequisites $NORMAL"
 # PadTool essential prerequisistes
