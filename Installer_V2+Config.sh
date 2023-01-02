@@ -155,16 +155,16 @@ libcurl4-openssl-dev \
 libmagickwand-dev \
 libvlc-dev vlc-data \
 libfaad2 libfaad-dev \
-python-mako python-requests \
 supervisor \
-pulseaudio libboost-system-dev
+pulseaudio libboost-system-dev \
+python-mako python-requests
 
 if [[ "$DISTRO" == "jessie" || "$DISTRO" == "stretch" ]] ; then
 sudo apt-get -y install vlc-nox
 sudo apt-get -y install libzmq3-dev libzmq3
 elif [ "$DISTRO" == "buster" ] ; then
 sudo apt-get -y install vlc-plugin-base
-sudo apt-get -y install libzmq5-dev libzmq5
+sudo apt-get -y install libzmq5-dev libzmq5 
 elif [ "$DISTRO" == "stretch" ] ; then
 sudo apt-get -y install libzmq3-dev libzmq5
 elif [ "$DISTRO" == "bullseye" ] ; then
