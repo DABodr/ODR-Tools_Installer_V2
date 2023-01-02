@@ -59,15 +59,12 @@ if [ $(lsb_release -d | grep -c Raspbian) -eq 1 ] && [ $(lsb_release -sc | grep 
 	DISTRO="stretch"
 echo -e "deb-src http://raspbian.raspberrypi.org/raspbian/ stretch main contrib non-free rpi" | sudo tee /etc/apt/sources.list.d/odr.list
         LIST_APT="ok"
-
 fi
 
 if [ $(lsb_release -d | grep -c Debian) -eq 1 ] && [ $(lsb_release -sc | grep -c buster) -eq 1 ] ; then
 	DISTRO="buster"
 echo -e  "deb-src http://ftp.debian.org/debian/ buster main contrib non-free" | sudo tee /etc/apt/sources.list.d/odr.list
         LIST_APT="ok"
-
-
 fi
 if [ $(lsb_release -d | grep -c Raspbian) -eq 1 ] && [ $(lsb_release -sc | grep -c buster) -eq 1 ]; then
         DISTRO="buster"
