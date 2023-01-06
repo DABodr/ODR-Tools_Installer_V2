@@ -340,7 +340,7 @@ echo -e " make"
 echo -e " sudo make install"
 echo
 echo -e "This example should give you the idea. For the options"
-echo -e "for compiling the other tools, please see in the ODRinstaller.sh"
+echo -e "for compiling the other tools, please see in the ODRinstaller_V2.sh"
 echo -e "script what options are used. Please also read the README"
 echo -e "and INSTALL files in the repositories. $NORMAL"
 echo -e $RED
