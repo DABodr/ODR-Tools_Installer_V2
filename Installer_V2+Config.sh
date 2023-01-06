@@ -264,18 +264,6 @@ cd
 popd
 fi
 
-# ========== fdk-aac ==========
-if [ ! -d "/home/$USER/dab/fdk-aac" ];then
-echo -e "$GREEN Compiling fdk-aac library $NORMAL"
-git clone https://github.com/Opendigitalradio/fdk-aac.git
-pushd fdk-aac
-./bootstrap
-./configure
-make
-sudo make install
-popd
-fi
-
 echo -e "$GREEN Updating ld cache $NORMAL"
 # update ld cache
 sudo ldconfig
