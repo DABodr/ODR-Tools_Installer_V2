@@ -43,7 +43,7 @@ if [ $(lsb_release -d | grep -c Debian) -eq 1 ] && [ $(lsb_release -sc | grep -c
 echo -e "deb-src http://ftp.debian.org/debian/ jessie main contrib non-free" | sudo tee /etc/apt/sources.list.d/odr.list
         LIST_APT="ok"
 fi
-if [ $(lsb_release -d | grep -c Raspbian) -eq 1 ] && [ $(lsb_release -sc | grep -c jessie) -eq 1 ]; then
+if [ $(uname -a | grep -c arm) -eq 1 ] && [ $(lsb_release -sc | grep -c jessie) -eq 1 ]; then
 	DISTRO="jessie"
 echo -e "deb-src http://raspbian.raspberrypi.org/raspbian/ jessie main contrib non-free rpi" | sudo tee /etc/apt/sources.list.d/odr.list
 	LIST_APT="ok"
@@ -55,7 +55,7 @@ if [ $(lsb_release -d | grep -c Debian) -eq 1 ] && [ $(lsb_release -sc | grep -c
 echo -e  "deb-src http://ftp.debian.org/debian/ stretch main contrib non-free" | sudo tee /etc/apt/sources.list.d/odr.list
         LIST_APT="ok"
 fi
-if [ $(lsb_release -d | grep -c Raspbian) -eq 1 ] && [ $(lsb_release -sc | grep -c stretch) -eq 1 ]; then
+if [ $(uname -a | grep -c arm) -eq 1 ] && [ $(lsb_release -sc | grep -c stretch) -eq 1 ]; then
 	DISTRO="stretch"
 echo -e "deb-src http://raspbian.raspberrypi.org/raspbian/ stretch main contrib non-free rpi" | sudo tee /etc/apt/sources.list.d/odr.list
         LIST_APT="ok"
@@ -66,7 +66,7 @@ if [ $(lsb_release -d | grep -c Debian) -eq 1 ] && [ $(lsb_release -sc | grep -c
 echo -e  "deb-src http://ftp.debian.org/debian/ buster main contrib non-free" | sudo tee /etc/apt/sources.list.d/odr.list
         LIST_APT="ok"
 fi
-if [ $(lsb_release -d | grep -c Raspbian) -eq 1 ] && [ $(lsb_release -sc | grep -c buster) -eq 1 ]; then
+if [ $(uname -a | grep -c arm) -eq 1 ] && [ $(lsb_release -sc | grep -c buster) -eq 1 ]; then
         DISTRO="buster"
 echo -e "deb-src http://raspbian.raspberrypi.org/raspbian/ buster contrib non-free rpi" | sudo tee /etc/apt/sources.list.d/odr.list
 	LIST_APT="ok"
@@ -79,7 +79,7 @@ echo -e  "deb-src http://ftp.debian.org/debian/ bullseye main contrib non-free" 
         LIST_APT="ok"
 fi
 
-if [ $(lsb_release -d | grep -c Raspbian) -eq 1 ] && [ $(lsb_release -sc | grep -c bullseye) -eq 1 ] ; then
+if [ $(uname -a | grep -c arm) -eq 1 ] && [ $(lsb_release -sc | grep -c bullseye) -eq 1 ] ; then
 	DISTRO="bullseye"
 echo -e  "deb-src http://raspbian.raspberrypi.org/raspbian/ bullseye main contrib non-free rpi" | sudo tee /etc/apt/sources.list.d/odr.list
         LIST_APT="ok"
@@ -157,7 +157,7 @@ libvlc-dev vlc-data \
 libfaad2 libfaad-dev \
 supervisor \
 pulseaudio libboost-system-dev \
-python-mako python-requests
+
 
 if [[ "$DISTRO" == "jessie" || "$DISTRO" == "stretch" ]] ; then
 sudo apt-get -y install vlc-nox
@@ -174,10 +174,10 @@ fi
 
 sudo apt-get -y install imagemagick
 
-if [ $(lsb_release -d | grep -c Raspbian) -eq 1 ] && [ $(lsb_release -sc | grep -c buster) -eq 1 ]; then
-sudo apt-get -y install libboost-all-dev libusb-1.0-0-dev 
+if [ $(uname -a | grep -c arm) -eq 1 ] && [ $(lsb_release -sc | grep -c buster) -eq 1 ]; then
+sudo apt-get -y install libboost-all-dev libusb-1.0-0-dev python-mako python-requests
 sudo apt-get -y install cmake
-elif [ $(lsb_release -d | grep -c Raspbian) -eq 1 ] && [ $(lsb_release -sc | grep -c bullseye) -eq 1 ]; then
+elif [ $(uname -a | grep -c arm) -eq 1 ] && [ $(lsb_release -sc | grep -c bullseye) -eq 1 ]; then
 sudo apt-get -y install libboost-all-dev libusb-1.0-0-dev 
 sudo apt-get -y install cmake
 elif [ $(lsb_release -d | grep -c Ubuntu) -eq 1 ] && [ $(lsb_release -sc | grep -c bionic) -eq 1 ]; then
@@ -239,7 +239,7 @@ echo -e "$GREEN Compiling ODR-DabMux $NORMAL"
 git clone https://github.com/Opendigitalradio/ODR-DabMux.git
 pushd ODR-DabMux
 ./bootstrap.sh
-if [ $(lsb_release -d | grep -c Raspbian) -eq 1 ]; then
+if [ $(uname -a | grep -c arm) -eq 1 ]; then
 ./configure --enable-input-zeromq --enable-output-zeromq --with-boost-libdir=/usr/lib/arm-linux-gnueabihf
 else
 ./configure --enable-input-zeromq --enable-output-zeromq --with-boost-libdir=/usr/lib/i386-linux-gnu
