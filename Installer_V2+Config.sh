@@ -157,7 +157,7 @@ libvlc-dev vlc-data \
 libfaad2 libfaad-dev \
 supervisor \
 pulseaudio libboost-system-dev \
-python-mako python-requests
+python3-mako python3-requests
 
 if [[ "$DISTRO" == "jessie" || "$DISTRO" == "stretch" ]] ; then
 sudo apt-get -y install vlc-nox
