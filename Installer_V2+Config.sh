@@ -85,6 +85,18 @@ echo -e  "deb-src http://raspbian.raspberrypi.org/raspbian/ bullseye main contri
         LIST_APT="ok"
 fi
 
+if [ $(lsb_release -d | grep -c Debian) -eq 1 ] && [ $(lsb_release -sc | grep -c bookworm) -eq 1 ] ; then
+	DISTRO="bookworm"
+echo -e  "deb-src http://ftp.debian.org/debian/ bookworm main contrib non-free" | sudo tee /etc/apt/sources.list.d/odr.list
+        LIST_APT="ok"
+
+fi
+if [ $(lsb_release -d | grep -c Raspbian) -eq 1 ] && [ $(lsb_release -sc | grep -c bookworm) -eq 1 ]; then
+        DISTRO="bookworm"
+echo -e "deb-src http://raspbian.raspberrypi.org/raspbian/ bookworm contrib non-free rpi" | sudo tee /etc/apt/sources.list.d/odr.list
+	LIST_APT="ok"
+fi
+
 echo
 echo -e $COIN " Your version : $DISTRO "
 echo "========================================================="
