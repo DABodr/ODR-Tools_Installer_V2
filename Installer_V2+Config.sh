@@ -182,6 +182,9 @@ sudo apt-get -y install libzmq3-dev libzmq5
 elif [ "$DISTRO" == "bullseye" ] ; then
 sudo apt-get -y install vlc-plugin-base
 sudo apt-get -y install libzmq3-dev libzmq5
+elif [ "$DISTRO" == "bookworm" ] ; then
+sudo apt-get -y install vlc-plugin-base
+sudo apt-get -y install libzmq3-dev libzmq5
 fi
 
 sudo apt-get -y install imagemagick
