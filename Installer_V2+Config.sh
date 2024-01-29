@@ -304,7 +304,7 @@ echo -e "$GREEN Compiling ODR-PadEnc $NORMAL"
 git clone https://github.com/Opendigitalradio/ODR-PadEnc.git
 pushd ODR-PadEnc
 ./bootstrap
-./configure --enable-jack --enable-vlc
+./configure
 make
 sudo make install
 popd
