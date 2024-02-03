@@ -193,7 +193,7 @@ if [ ! -d "$dab_dir/ODR-AudioEnc" ]; then
     git clone https://github.com/Opendigitalradio/ODR-AudioEnc.git
     pushd ODR-AudioEnc
     ./bootstrap
-    ./configure --enable-alsa --enable-jack --enable-vlc --disable-uhd
+    ./configure --enable-alsa --enable-jack --enable-vlc --disable-uhd --enable-gst
     make
     sudo make install
     popd
@@ -205,7 +205,7 @@ if [ ! -d "$dab_dir/ODR-PadEnc" ]; then
     git clone https://github.com/Opendigitalradio/ODR-PadEnc.git
     pushd ODR-PadEnc
     ./bootstrap
-    ./configure --enable-jack --enable-vlc
+    ./configure
     make
     sudo make install
     popd
