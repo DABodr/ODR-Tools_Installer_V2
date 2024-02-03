@@ -93,8 +93,6 @@ essential_prerequisites=(
     supervisor
     pulseaudio
     libboost-system-dev
-    python3-mako
-    python3-requests
 )
 
 # Check the Debian distribution for specific package requirements
@@ -127,15 +125,6 @@ if [ $(lsb_release -d | grep -c Raspbian) -eq 1 ]; then
     fi
 fi
 
-# Install PadTool prerequisites
-padtool_prerequisites=(
-    python3
-    python3-pip
-    chromium
-    chromium-driver
-)
-
-install_packages "${padtool_prerequisites[@]}"
 
 # Clone and build mmbTools, EtiSnoop, DabMux, DABlin, AudioEnc, PadEnc, and PadTool
 dab_dir="/home/$USER/dab"
@@ -216,15 +205,6 @@ if [ ! -d "$dab_dir/ODR-PadEnc" ]; then
     ./configure --enable-jack --enable-vlc
     make
     sudo make install
-    popd
-fi
-
-# Clone and configure PadTool if not already present
-if [ ! -d "$dab_dir/PadTool" ]; then
-    echo -e "$GREEN Compiling PadTool $NORMAL"
-    git clone https://github.com/fabcd14/PadTool
-    pushd PadTool
-    chmod +x ./padtool.py
     popd
 fi
 
