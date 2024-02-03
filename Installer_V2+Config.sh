@@ -184,6 +184,9 @@ if [ ! -d "$dab_dir/dablin" ]; then
     popd
 fi
 
+# For gstreamer option :
+sudo apt-get -y install gstreamer1.0-plugins-bad gstreamer1.0-plugins-base gstreamer1.0-plugins-good gstreamer1.0-plugins-ugly libgstreamer-plugins-bad1.0-dev libgstreamer-plugins-base1.0-dev libgstreamer-plugins-base1.0-dev libgstreamer1.0-dev
+
 # Clone and build ODR-AudioEnc if not already present
 if [ ! -d "$dab_dir/ODR-AudioEnc" ]; then
     echo -e "$GREEN Compiling ODR-AudioEnc $NORMAL"
